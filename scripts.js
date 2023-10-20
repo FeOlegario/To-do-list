@@ -6,24 +6,47 @@ let minhaListaDeItem = []  // isso é uma variavel que cria uma lista, o let dif
 
 
 // essa função vai pegar o valor do input (input,value) e carregar para lista (minhaListaDeItem.push)
-function adicionarNovaTarefa(){
-    minhaListaDeItem.push(input.value);
+function adicionaarNovaTarefa() {
+    minhaListaDeItem.push(input.value)
 
     input.value = '' // esse valor vai ser vazio, para que o input seja limpo.
 
-} 
+    mostrarTarefas()
+}
+
+/* essa função irá chamar um alerta caso a pessoa tente adicionar  uma tarfa
+somente com espaço ou não coloque nada*/
+function vazio(){
+    alert('Campo vazio ou com espaço')
+}
+
+/*Essa função, será um teste lógico para realizar ou não a entrada de uma nova
+tarefa*/
+function tarefaVaziaOuNao(){
+    const inputValue = input.value.trim() // método trim() é usado para remover espaços em branco do início e do final do valor inserido no campo de entrada
+
+    if(inputValue == ''){
+        vazio();
+    }else{
+        adicionaarNovaTarefa()
+}}
 
 
-
-function mostrarTarefa(){
+function mostrarTarefas(){
+    
     let novaLi = ''
-    minhaListaDeItem.forEach(( tarefa ) => {
+    
+    minhaListaDeItem.forEach( (tarefa, posicao) => {
+
         novaLi = novaLi + `
+        
         <li class="task">
             <img src="./img/confirme.png" alt="check-na-tarefa">
             <p>${tarefa}</p>
-            <img src="./img/excluir.png" alt="tarefa-o-lixo">
+            <img src="./img/excluir.png" alt="tarefa-o-lixo" onclick="deletarTarefa(${posicao})">
         </li>
+        
+        
         `
     })
 
@@ -31,7 +54,9 @@ function mostrarTarefa(){
 
 }
 
+function deletarTarefa(posicao){
+    minhaListaDeItem.splice(posicao, 1)
+    mostrarTarefas()
+}
 
-button.addEventListener('click', adicionarNovaTarefa) // esse addEventListener, ele fica "vigindo" uma ação de click no botão
-
-
+button.addEventListener('click', tarefaVaziaOuNao) // esse addEventListener, ele fica "vigindo" uma ação de click no botão
