@@ -7,7 +7,10 @@ let minhaListaDeItem = []  // isso é uma variavel que cria uma lista, o let dif
 
 // essa função vai pegar o valor do input (input,value) e carregar para lista (minhaListaDeItem.push)
 function adicionaarNovaTarefa() {
-    minhaListaDeItem.push(input.value)
+    minhaListaDeItem.push({
+        tarefa: input.value,
+        concluida: false
+    })
 
     input.value = '' // esse valor vai ser vazio, para que o input seja limpo.
 
@@ -36,13 +39,13 @@ function mostrarTarefas(){
     
     let novaLi = ''
     
-    minhaListaDeItem.forEach( (tarefa, posicao) => {
+    minhaListaDeItem.forEach( (item, posicao) => {
 
         novaLi = novaLi + `
         
-        <li class="task">
-            <img src="./img/confirme.png" alt="check-na-tarefa">
-            <p>${tarefa}</p>
+        <li class="task ${item.concluida && "done"}">
+            <img src="./img/confirme.png" alt="check-na-tarefa" onclick="concluirTarefa(${posicao})">
+            <p>${item.tarefa}</p>
             <img src="./img/excluir.png" alt="tarefa-o-lixo" onclick="deletarTarefa(${posicao})">
         </li>
         
@@ -52,6 +55,16 @@ function mostrarTarefas(){
 
     listaCompleta.innerHTML = novaLi
 
+    localStorage.setItem('lista', JSON.stringify(minhaListaDeItem))
+}
+
+
+
+function concluirTarefa(posicao) {
+    minhaListaDeItem[posicao].concluida = !minhaListaDeItem[posicao].concluida 
+
+    mostrarTarefas()
+
 }
 
 function deletarTarefa(posicao){
@@ -59,4 +72,14 @@ function deletarTarefa(posicao){
     mostrarTarefas()
 }
 
+function recarregarTarefas() {
+    const tarefaDolocalStorage = localStorage.getItem('lista')
+
+    if(tarefaDolocalStorage) {
+    minhaListaDeItem = JSON.parse(tarefaDolocalStorage)
+    }
+    mostrarTarefas()
+}
+
+recarregarTarefas()
 button.addEventListener('click', tarefaVaziaOuNao) // esse addEventListener, ele fica "vigindo" uma ação de click no botão

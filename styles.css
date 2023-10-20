@@ -91,3 +91,10 @@ img {
 .task:hover img{
     opacity: 1;
 }
+
+
+.done {
+    background-color: #d4888b;
+    text-decoration: line-through;
+    color: azure;
+}
