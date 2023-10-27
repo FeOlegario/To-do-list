@@ -6,7 +6,8 @@
     outline: none;
 }
 
-html, body{
+html,
+body {
     height: 100%;
     width: 100%;
 }
@@ -14,8 +15,10 @@ html, body{
 body {
     background: url("./img/wallpaperflare.com_wallpaper.jpg");
     background-size: cover;
-    background-repeat: no-repeat;
-    
+    /* background-repeat: no-repeat; */
+    background-attachment: fixed;
+    overflow-y: hidden;
+
 }
 
 
@@ -65,6 +68,8 @@ body {
     width: 100%;
     list-style: none;
     margin-top: 25px;
+    max-height: 400px;
+    overflow-y: auto;
 
 }
 
@@ -88,7 +93,7 @@ img {
     transition: opacity 0.5s linear;
 }
 
-.task:hover img{
+.task:hover img {
     opacity: 1;
 }
 
@@ -98,3 +103,29 @@ img {
     text-decoration: line-through;
     color: azure;
 }
+
+
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-darkshadow-color: #d1d1d1;
+    scrollbar-color: rgb(137, 124, 142)  rgb(137, 124, 142, 0);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 10px
+}
+
+
+*::-webkit-scrollbar-thumb {
+    background-color: #897c8e;
+    border-radius: 20px;
+    border: 3px;
+}
+
+
+
+
+
